@@ -177,7 +177,12 @@ export const handleTtsCommands: CommandHandler = async (params, allowTextCommand
     }
 
     const requested = args.trim().toLowerCase();
-    if (requested !== "openai" && requested !== "elevenlabs" && requested !== "edge" && requested !== "gemini") {
+    if (
+      requested !== "openai" &&
+      requested !== "elevenlabs" &&
+      requested !== "edge" &&
+      requested !== "gemini"
+    ) {
       return { shouldContinue: false, reply: ttsUsage() };
     }
 

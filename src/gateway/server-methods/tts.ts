@@ -100,7 +100,12 @@ export const ttsHandlers: GatewayRequestHandlers = {
   },
   "tts.setProvider": async ({ params, respond }) => {
     const provider = typeof params.provider === "string" ? params.provider.trim() : "";
-    if (provider !== "openai" && provider !== "elevenlabs" && provider !== "edge" && provider !== "gemini") {
+    if (
+      provider !== "openai" &&
+      provider !== "elevenlabs" &&
+      provider !== "edge" &&
+      provider !== "gemini"
+    ) {
       respond(
         false,
         undefined,

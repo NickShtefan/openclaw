@@ -38,7 +38,6 @@ import {
   openaiTTS,
   geminiTTS,
   GEMINI_TTS_VOICES,
-  isValidGeminiVoice,
   parseTtsDirectives,
   scheduleCleanup,
   summarizeText,
@@ -536,7 +535,7 @@ export function resolveTtsProviderOrder(primary: TtsProvider): TtsProvider[] {
 }
 
 export function isTtsProviderConfigured(config: ResolvedTtsConfig, provider: TtsProvider): boolean {
-  if (provider === "edge" || provider === "gemini") {
+  if (provider === "edge") {
     return config.edge.enabled;
   }
   return Boolean(resolveTtsApiKey(config, provider));
@@ -617,7 +616,7 @@ export async function textToSpeech(params: {
         }
       }
 
-      if (provider === "edge" || provider === "gemini") {
+      if (provider === "edge") {
         if (!config.edge.enabled) {
           errors.push("edge: disabled");
           continue;
