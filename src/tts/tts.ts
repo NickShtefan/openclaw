@@ -536,7 +536,7 @@ export function resolveTtsProviderOrder(primary: TtsProvider): TtsProvider[] {
 }
 
 export function isTtsProviderConfigured(config: ResolvedTtsConfig, provider: TtsProvider): boolean {
-  if (provider === "edge") {
+  if (provider === "edge" || provider === "gemini") {
     return config.edge.enabled;
   }
   return Boolean(resolveTtsApiKey(config, provider));
@@ -586,7 +586,6 @@ export async function textToSpeech(params: {
           continue;
         }
 
-        const providerStart = Date.now();
         try {
           const audioBuffer = await geminiTTS({
             text: params.text,
@@ -618,7 +617,7 @@ export async function textToSpeech(params: {
         }
       }
 
-      if (provider === "edge") {
+      if (provider === "edge" || provider === "gemini") {
         if (!config.edge.enabled) {
           errors.push("edge: disabled");
           continue;
@@ -782,8 +781,8 @@ export async function textToSpeechTelephony(params: {
   for (const provider of providers) {
     const providerStart = Date.now();
     try {
-      if (provider === "edge") {
-        errors.push("edge: unsupported for telephony");
+      if (provider === "edge" || provider === "gemini") {
+        errors.push(`${provider}: unsupported for telephony`);
         continue;
       }
 
